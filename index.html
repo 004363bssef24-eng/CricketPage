@@ -5,80 +5,165 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cricket Score Board</title>
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
       body {
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: 'Arial', Helvetica, sans-serif;
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 5rem;
+        justify-content: center;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 1rem;
+        margin-top: 0;
       }
-      .score-board p {
-        font-size: 1.6rem;
-      }
+
       .score-board {
-        border: 1px solid black;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: 3px solid #09cdb5;
         text-align: center;
         border-radius: 2rem;
-        padding: 3rem;
-        justify-items: center;
-        background-color: greenyellow;
-        color: rgb(25, 0, 255);
-        width: 50vw;
+        padding: 2rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 500px;
+        color: white;
+        overflow: hidden;
       }
+
+      .score-board p {
+        font-size: clamp(1.2rem, 4vw, 1.8rem);
+        margin: 1rem 0;
+        font-weight: bold;
+      }
+
+      .score-board h3 {
+        font-size: clamp(2rem, 6vw, 3rem);
+        margin: 1rem 0;
+        color: #ffd700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .score-board .warning {
+        color: #ff6b6b;
+        font-weight: bold;
+        margin-top: 1rem;
+        font-size: clamp(0.9rem, 3vw, 1.2rem);
+      }
+
       div.admin {
         margin-top: 2rem;
-        width: 60vw;
-        gap: 1rem;
+        width: 100%;
+        max-width: 600px;
+        gap: 0.8rem;
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
-        border-radius: 1rem;
-        border: 1px solid black;
-        padding: 1rem 1rem 1rem 1rem;
+        border-radius: 1.5rem;
+        border: 3px solid #09cdb5;
+        padding: 1.5rem;
         text-align: center;
+        background-color: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
       }
-      button.btn {
+
+      button {
         border-radius: 1rem;
-        padding: 6px 10px 6px 10px;
+        padding: 0.7rem 1.2rem;
         font-weight: bold;
-        font-size: 1rem;
+        font-size: clamp(0.8rem, 2vw, 1rem);
         transition: all 0.3s ease;
-        border: 1px solid rgb(9, 207, 181);
+        border: 2px solid rgb(9, 207, 181);
         cursor: pointer;
-        background-color: rgb(0, 255, 128);
         color: white;
-        text-shadow: black 0.1em 0.1em 0.2em;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        flex: 1 1 auto;
+        min-width: 50px;
+      }
+
+      button.btn {
+        background-color: rgb(0, 255, 128);
       }
 
       button.wide {
-        border: 1px solid rgb(9, 207, 181);
-        border-radius: 1rem;
-        padding: 6px 10px 6px 10px;
-        font-weight: bold;
-        font-size: 1rem;
-        cursor: pointer;
         background-color: rgb(0, 255, 128);
-        color: white;
-        text-shadow: black 0.1em 0.1em 0.2em;
-        transition: all 0.3s ease;
+          flex: 1 1 calc(50% - 0.4rem);
       }
 
       button.danger {
-        border: 1px solid rgb(9, 207, 181);
-        border-radius: 1rem;
-        padding: 6px 10px 6px 10px;
-        font-weight: bold;
-        font-size: 1rem;
-        cursor: pointer;
-        background-color: red;
-        color: white;
-        text-shadow: black 0.1em 0.1em 0.2em;
-        transition: all 0.3s ease;
+        background-color: #ff6b6b;
+        flex: 1 1 calc(50% - 0.4rem);
       }
-      button:hover {
+
+      button:hover:not(:disabled) {
         background-color: white;
-        transform: scale(1.1);
-        color: rgb(0, 0, 0);
-        text-shadow: black 0.1em 0.1em 0.2em;
+        transform: scale(1.05);
+        color: #667eea;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      }
+
+      button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          margin-top: 0;
+          padding: 0.5rem;
+        }
+
+        .score-board {
+          padding: 1.5rem;
+          max-width: 95vw;
+        }
+
+        div.admin {
+          max-width: 95vw;
+          padding: 1rem;
+          gap: 0.6rem;
+        }
+
+        button {
+          padding: 0.6rem 1rem;
+          flex: 1 1 calc(33.333% - 0.4rem);
+        }
+
+        button.wide {
+          flex: 1 1 calc(33.333% - 0.4rem);
+        }
+
+        button.danger {
+          flex: 1 1 calc(33.333% - 0.4rem);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .score-board {
+          padding: 1rem;
+          border-radius: 1.5rem;
+        }
+
+        div.admin {
+          padding: 0.8rem;
+          gap: 0.5rem;
+        }
+
+        button {
+          padding: 0.5rem 0.8rem;
+          flex: 1 1 calc(50% - 0.25rem);
+          font-size: 0.85rem;
+        }
+
+        button.wide,
+        button.danger {
+          flex: 1 1 calc(50% - 0.25rem);
+        }
       }
     </style>
   </head>
